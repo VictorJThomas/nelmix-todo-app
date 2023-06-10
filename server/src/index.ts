@@ -14,11 +14,12 @@ app.use(bodyParser.json({ limit: "50mb"}));
 // * Mongoose Connection
 mongoose.connect(process.env.MONGO_URL as string
     ).then(() => {
+        // Redirection to http://localhost:3000/api/
         app.get("/", (req: Request, res: Response) => {
             res.redirect("/api")
         })
     }).catch((error) => console.log(`${error} did not connect`))
 
 
-// Redirection Config
+
 
