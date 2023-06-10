@@ -7,18 +7,18 @@ import {
   deleteTask,
 } from "../controllers/TaskController";
 
-const tasRouter = Router();
+const taskRouter = Router();
 
 // Get Task by Id
-tasRouter.get("/:taskId", authenticateUser, checkAuthorization, getTask);
+taskRouter.get("/:taskId", authenticateUser, checkAuthorization, getTask);
 
 // Create new Task
-tasRouter.post("/", authenticateUser, createTask);
+taskRouter.post("/", authenticateUser, createTask);
 
 // Update Task
-tasRouter.put("/:taskId", authenticateUser, checkAuthorization, updateTask);
+taskRouter.put("/:taskId", authenticateUser, checkAuthorization, updateTask);
 
 // Delete Task
-tasRouter.delete("/:taskId", authenticateUser, checkAuthorization, deleteTask);
+taskRouter.delete("/:taskId", authenticateUser, checkAuthorization, deleteTask);
 
-export default tasRouter;
+export default taskRouter;

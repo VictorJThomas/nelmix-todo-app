@@ -6,6 +6,7 @@
 import express, { Request, Response } from "express";
 import userRouter from "./UserRouter";
 import authRouter from "./AuthRouter";
+import taskRouter from "./TaskRouter";
 
 // Server instance
 let app = express();
@@ -21,4 +22,6 @@ rootRouter.get("/", (req: Request, res: Response) => {
 app.use("/", rootRouter); // http://localhost:8000/api/
 app.use('/user', userRouter) // http://localhost:8000/api/user
 app.use('/auth', authRouter) // http://localhost:8000/api/auth
-// app.use('/task', taskRouter) // http://localhost:8000/api/task
+app.use('/task', taskRouter) // http://localhost:8000/api/task
+
+export default app
