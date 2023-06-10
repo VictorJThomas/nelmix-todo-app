@@ -6,6 +6,7 @@ export interface IUser extends Document {
   passwordHash: string;
   isTemporary: boolean;
   expirationTime?: Date;
+  tasks: mongoose.Types.ObjectId[]; 
 }
 
 const userSchema = new Schema<IUser>({
@@ -25,6 +26,10 @@ const userSchema = new Schema<IUser>({
   expirationTime: {
     type: Date,
   },
+  tasks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
+  }]
 });
 
 export const User = mongoose.model<IUser>("User", userSchema);

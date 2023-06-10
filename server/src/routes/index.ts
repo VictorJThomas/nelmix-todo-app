@@ -19,6 +19,6 @@ rootRouter.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/", rootRouter); // http://localhost:8000/api/
-app.use('/user', userRouter) 
+app.use('/user', userRouter) // http://localhost:8000/api/user
 app.use('/auth', authRouter) // http://localhost:8000/api/auth
 // app.use('/task', taskRouter) // http://localhost:8000/api/task

@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 // * Tasks Model
-interface TaskDocument extends Document {
+interface ITask extends Document {
   userId: mongoose.Types.ObjectId;
   title: string;
   completed: boolean;
 }
 
-const taskSchema = new Schema<TaskDocument>({
+const taskSchema = new Schema<ITask>({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -22,3 +22,5 @@ const taskSchema = new Schema<TaskDocument>({
     default: false,
   },
 });
+
+export const Task = mongoose.model<ITask>("Task", taskSchema)
