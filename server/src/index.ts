@@ -1,15 +1,24 @@
-import express from 'express';
+import express, {Express, Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config()
 
-const app = express();
-const port = process.env.PORT || 3000;
+const app: Express = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+// * Content Type Config
+app.use(bodyParser.urlencoded({extended: true, limit: "50mb"}))
+app.use(bodyParser.json({ limit: "50mb"}));
 
-app.listen(port, () => {
-    console.log(`Server is runing on port $(port)`);
-})
+// * Mongoose Connection
+mongoose.connect(process.env.MONGO_URL as string
+    ).then(() => {
+        app.get("/", (req: Request, res: Response) => {
+            res.redirect("/api")
+        })
+    }).catch((error) => console.log(`${error} did not connect`))
+
+
+// Redirection Config
+
