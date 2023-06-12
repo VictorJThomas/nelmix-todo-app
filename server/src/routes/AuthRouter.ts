@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { registerUser, loginAsGuest } from "../controllers/AuthController";
+import { registerUser, createTemporaryProfile, loginUser } from "../controllers/AuthController";
 
 const authRouter: Router = express.Router();
 
@@ -7,6 +7,9 @@ const authRouter: Router = express.Router();
 authRouter.post("/register", registerUser);
 
 // Login with a Temporary Profile
-authRouter.post("/login/guest", loginAsGuest);
+authRouter.post("/guest", createTemporaryProfile);
+
+// Login with existent Profile
+authRouter.post("/login", loginUser);
 
 export default authRouter;

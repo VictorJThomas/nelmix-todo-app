@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import rootRouter from './routes';
+import cors from "cors";
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -11,6 +13,9 @@ const app: Express = express();
 // Content Type Config
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(bodyParser.json({ limit: '50mb' }));
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(cors())
 
 const PORT = process.env.PORT || 3000;
 

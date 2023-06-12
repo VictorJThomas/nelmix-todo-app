@@ -5,6 +5,7 @@ interface ITask extends Document {
   userId: mongoose.Types.ObjectId;
   title: string;
   completed: boolean;
+  description?: string;
 }
 
 const taskSchema = new Schema<ITask>({
@@ -20,6 +21,9 @@ const taskSchema = new Schema<ITask>({
   completed: {
     type: Boolean,
     default: false,
+  },
+  description: { 
+    type: String 
   },
 });
 
