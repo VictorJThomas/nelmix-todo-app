@@ -1,16 +1,16 @@
 import { Router } from "express";
 import { authenticateUser, checkAuthorization } from "../middlewares/auth";
 import {
-  getTask,
   createTask,
   updateTask,
   deleteTask,
+  getTasks,
 } from "../controllers/TaskController";
 
 const taskRouter = Router();
 
-// Get Task by Id
-taskRouter.get("/:taskId", authenticateUser, checkAuthorization, getTask);
+// Get all Tasks
+taskRouter.get("/", authenticateUser, getTasks);
 
 // Create new Task
 taskRouter.post("/", authenticateUser, createTask);

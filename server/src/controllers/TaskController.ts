@@ -7,22 +7,27 @@ interface AuthenticatedRequest extends Request {
   userId?: string;
 }
 
-// Get Task by Id
-export const getTask = async (req: Request, res: Response) => {
+// Get all Task 
+export const getTasks = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const taskId = req.params.taskId;
-    const task = await Task.findById(taskId);
+    const userId = req.userId;
 
-    if (!task) {
-      return res.status(404).json({ error: "Task not found" });
+    // Find user by userId
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
-    res.json(task);
+
+    // Retrieve tasks associated with the user
+    const tasks = await Task.find({ userId: user._id });
+
+    res.json(tasks);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error" });
   }
 };
-
 
 // Create Task
 export const createTask = async (req: AuthenticatedRequest, res: Response) => {

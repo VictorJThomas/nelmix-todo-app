@@ -8,12 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { Formik, Form, Field, FormikHelpers, FormikProps } from "formik";
-import * as Yup from "yup";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setGuest, setLogin } from "../../redux/slices/authSlice";
 import { LoginValidate, RegisterValidate } from "../../utils/validateForm";
+import { useNotification } from "../../context/notificationContext";
 
 type LoginType = {
   username: string;
@@ -42,6 +42,8 @@ const LoginPage: React.FC = () => {
     password: "",
   };
 
+  const { getError, getSuccess } = useNotification();
+
   const handleFormSubmit = async (
     values: LoginType | RegisterType,
     { resetForm }: FormikHelpers<LoginType | RegisterType>
@@ -62,6 +64,9 @@ const LoginPage: React.FC = () => {
             })
           );
           navigate("/home");
+          getSuccess("Login successful");
+        } else {
+          getError("Login failed");
         }
       } else if (isRegister) {
         const savedUserResponse = await axios.post(
@@ -72,10 +77,14 @@ const LoginPage: React.FC = () => {
         resetForm();
         if (savedUser) {
           setPageType("login");
+          getSuccess("Registration successful");
+        } else {
+          getError("Registration failed");
         }
       }
     } catch (error) {
       console.error(error);
+      getError("An error occurred");
     }
   };
 
@@ -98,8 +107,10 @@ const LoginPage: React.FC = () => {
       console.log("Guest profile created:", response.data);
       dispatch(setGuest());
       navigate("/home");
+      getSuccess("Guest login successful");
     } catch (error) {
       console.error(error);
+      getError("Guest login failed");
     }
   };
 
