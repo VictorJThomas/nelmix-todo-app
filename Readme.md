@@ -20,6 +20,7 @@ This app has been created using the following techs:
 - Express.js.
 - Redux.
 - MongoDB.
+- Material UI.
 
 ## Endpoints
 
