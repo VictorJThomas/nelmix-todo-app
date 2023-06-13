@@ -70,7 +70,7 @@ This project has two folders (server and client).
 
 To run server for development:
 
-1. `cd .\client\`
+1. `cd .\server\`
 
 2. `npm install`
 
