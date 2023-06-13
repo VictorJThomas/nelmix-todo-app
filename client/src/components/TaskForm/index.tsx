@@ -4,6 +4,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { addTask } from "../../redux/slices/taskSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { addGuestTask } from "../../redux/slices/authSlice";
 
 type TaskFormProps = {
   onSubmit: () => void;
@@ -19,7 +20,10 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (isGuest) {
-      dispatch(addGuestTask({ title, description }));
+      dispatch(addGuestTask({
+        title, description,
+        id: ""
+      })); // Dispatch addGuestTask
       onSubmit();
     } else {
       try {
@@ -63,6 +67,3 @@ export const TaskForm: React.FC<TaskFormProps> = ({ onSubmit }) => {
     </Box>
   );
 };
-function addGuestTask(arg0: { title: string; description: string }): any {
-  throw new Error("Function not implemented.");
-}

@@ -18,7 +18,7 @@ export const NavBar = () => {
   const dispatch = useDispatch();
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, mb:10 }}>
       <AppBar>
         <Toolbar>
           <Container maxWidth="xl">

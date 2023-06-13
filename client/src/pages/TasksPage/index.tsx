@@ -9,21 +9,15 @@ import {
 import { NavBar } from "../../common/NavBar";
 import { TaskForm } from "../../components";
 import { TaskCard } from "../../components";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { addTask, setTasks } from "../../redux/slices/taskSlice";
+import { addTask, setTasks, deleteTask } from "../../redux/slices/taskSlice";
 import { setGuestTasks } from "../../redux/slices/authSlice";
 
 type TasksPageProps = {
   isGuest?: boolean;
-};
-
-type Task = {
-  id: string;
-  title: string;
-  description: string;
 };
 
 export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
@@ -52,7 +46,7 @@ export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
 
   const fetchGuestTasks = () => {
     const guestTasks = JSON.parse(localStorage.getItem("guestTasks") || "[]");
-    console.log(guestTasks); // Log guest tasks for testing purposes
+    console.log(guestTasks);
     dispatch(setGuestTasks(guestTasks));
   };
 
@@ -63,9 +57,10 @@ export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
       try {
         const response = await axios.post(
           "http://localhost:3000/api/task/",
+          {},
           config
         );
-        console.log(response.data); // Log the response for testing purposes
+        console.log(response.data);
         dispatch(addTask(response.data));
       } catch (error) {
         console.error(error);
@@ -81,6 +76,17 @@ export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
       fetchTasks();
     }
   }, []);
+
+  const handleDelete = async (taskId: string) => {
+    try {
+      await axios.delete(`http://localhost:3000/api/task/${taskId}`, config);
+      dispatch(deleteTask(taskId));
+      fetchTasks();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <>
       <NavBar />
@@ -111,17 +117,17 @@ export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
           </Grid>
         </Box>
         <Box display="flex" justifyContent="center" mt={4}>
-          {/* Container to display all tasks */}
-          {/* Replace with your actual task display component */}
           <Container maxWidth="md">
             <Typography variant="h6" component="div">
               All Tasks
             </Typography>
             {tasks.map((task) => (
               <TaskCard
-                key={`${task.id}-${task.title}`}
+                key={task._id}
                 title={task.title}
                 description={task.description}
+                taskId={task._id}
+                onDelete={() => handleDelete(task._id)}
               />
             ))}
           </Container>
@@ -130,5 +136,3 @@ export const TasksPage: React.FC<TasksPageProps> = ({ isGuest }) => {
     </>
   );
 };
-
-export default TasksPage;

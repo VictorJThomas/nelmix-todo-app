@@ -88,7 +88,7 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  const createGuesteProfile = async () => {
+  const createGuestProfile = async () => {
     try {
       const apiKey = "95C61AD4-9A6B-F40B-FF32-D9A56D987D00";
       const apiRestKey = "9F288FA0-10EF-4CEA-81F7-D89B1803137A";
@@ -188,7 +188,7 @@ const LoginPage: React.FC = () => {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 0.5, mb: 3 }}
-                    onClick={() => createGuesteProfile()}
+                    onClick={() => createGuestProfile()}
                   >
                     JOIN AS GUEST
                   </Button>

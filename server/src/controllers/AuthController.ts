@@ -71,9 +71,19 @@ export const loginUser = async (
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
     const userWithoutPassword = { ...user.toObject(), passwordHash: undefined };
 
+    // Create ProfileAccess document
+    const profileAccess = new ProfileAccess({
+      userId: user._id,
+      profileType: user.isTemporary, 
+      accessedAt: new Date(),
+      expiresAt: new Date()
+    });
+    await profileAccess.save();
+
     res.status(200).json({ token, user: userWithoutPassword });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Failed to login" });
   }
 };
+

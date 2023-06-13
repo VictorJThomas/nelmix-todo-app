@@ -4,7 +4,7 @@ type GuestTask = {
   id: string;
   title: string;
   description: string;
-}
+};
 
 type Tasks = {
   id: string;
@@ -16,8 +16,8 @@ interface AuthState {
   user: any;
   token: string | null;
   isGuest: boolean;
-  tasks: Tasks[]
-  guestTasks: GuestTask[]
+  tasks: Tasks[];
+  guestTasks: GuestTask[];
 }
 
 const initialState: AuthState = {
@@ -25,9 +25,8 @@ const initialState: AuthState = {
   token: null,
   isGuest: false,
   tasks: [],
-  guestTasks: []
+  guestTasks: [],
 };
-
 
 export const authSlice = createSlice({
   name: "auth",
@@ -48,7 +47,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.isGuest = true;
     },
-    setTasks: (state, action: PayloadAction<{ tasks: Tasks[]}>) => {
+    setTasks: (state, action: PayloadAction<{ tasks: Tasks[] }>) => {
       state.tasks = action.payload.tasks;
     },
     addGuestTask: (state, action: PayloadAction<GuestTask>) => {
@@ -57,10 +56,11 @@ export const authSlice = createSlice({
     },
     setGuestTasks: (state, action: PayloadAction<GuestTask[]>) => {
       state.guestTasks = action.payload;
-    }
+    },
   },
 });
 
-export const { setLogin, setLogout, setGuest, setGuestTasks, addGuestTask } = authSlice.actions;
+export const { setLogin, setLogout, setGuest, setGuestTasks, addGuestTask } =
+  authSlice.actions;
 
 export default authSlice.reducer;

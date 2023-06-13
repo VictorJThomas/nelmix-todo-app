@@ -1,10 +1,5 @@
 import { useSelector } from "react-redux";
-import {
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import { TasksPage } from "./pages/TasksPage";
 import { ProfilesPage } from "./pages/ProfilesPage";

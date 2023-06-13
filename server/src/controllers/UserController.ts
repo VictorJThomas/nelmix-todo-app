@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
-import { User, ProfileAccess } from "../models/User";
+import { User, ProfileAccess} from "../models/User";
 
 export const getUserRegistry = async (req: Request, res: Response) => {
   try {
     // Fetch access records from ProfileAccess Model
-    const accessRecords = await ProfileAccess.find().populate("userId");
+    const accessRecords = await ProfileAccess.find();
 
     // Fetch the usernames from User Model
-    const userIds = accessRecords.map((record) => record.userId);
-    const users = await User.find({ _id: { $in: userIds } });
+    const userId = accessRecords.map((record) => record.userId);
+    const users = await User.find({ _id: { $in: userId } });
 
     // Combine the access records and user data
     const accessRegistry = accessRecords.map((record) => {
