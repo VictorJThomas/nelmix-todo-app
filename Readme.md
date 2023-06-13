@@ -71,9 +71,19 @@ This project has two folders (server and client).
 To run server for development:
 
 `cd .\client\`
+
+`npm install`
+
 `npm run dev`
 
 To run client for development:
 
 `cd .\client\`
+
+`npm install`
+
 `npm run dev`
+
+### Additional
+
+In case of issues with `npm install`, try: `npm install --force`.
