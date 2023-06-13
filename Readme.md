@@ -70,19 +70,19 @@ This project has two folders (server and client).
 
 To run server for development:
 
-`cd .\client\`
+1. `cd .\client\`
 
-`npm install`
+2. `npm install`
 
-`npm run dev`
+3. `npm run dev`
 
 To run client for development:
 
-`cd .\client\`
+1. `cd .\client\`
 
-`npm install`
+2. `npm install`
 
-`npm run dev`
+3. `npm run dev`
 
 ### Additional
 
